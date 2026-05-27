@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krystian Pąsiek — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --border: #2a2a2a;
+    --accent: #c8f04e;
+    --accent2: #f04e7a;
+    --text: #e8e4dc;
+    --muted: #6b6760;
+    --serif: 'Playfair Display', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.5;
+  }
+
+  /* ── LANGUAGE TOGGLE ── */
+  .lang-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .lang-btn {
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .lang-btn:hover:not(.active) { color: var(--text); }
+
+  /* hide/show language content */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+  body.lang-en [data-lang="pl"] { display: none; }
+
+  /* inline spans */
+  span[data-lang="en"] { display: none; }
+  body.lang-en span[data-lang="en"] { display: inline; }
+  body.lang-en span[data-lang="pl"] { display: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 48px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(14,14,14,0.85);
+    backdrop-filter: blur(12px);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 48px 80px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(56px, 9vw, 130px);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--muted);
+    display: block;
+  }
+
+  .hero-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .hero-bio {
+    max-width: 480px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .hero-bio strong { color: var(--text); font-weight: 400; }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 32px;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .hero-cta:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .hero-year {
+    position: absolute;
+    top: 120px; right: 48px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--border);
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 4vw, 56px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 20px;
+  }
+
+  .detail-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    min-width: 120px;
+  }
+
+  .detail-value {
+    color: var(--text);
+    text-align: right;
+    font-size: 13px;
+  }
+
+  /* ── MANIFESTO ── */
+  .manifesto-block {
+    border-left: 3px solid var(--accent);
+    padding: 32px 40px;
+    background: var(--surface);
+    margin-top: 56px;
+  }
+
+  .manifesto-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .manifesto-text {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    padding: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .skill-card:hover { transform: translateY(-2px); }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--accent);
+    transition: height 0.3s;
+  }
+
+  .skill-card:hover::before { height: 100%; }
+
+  .skill-category {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .skill-name {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  .skill-level {
+    margin-top: 20px;
+    height: 2px;
+    background: var(--border);
+    position: relative;
+  }
+
+  .skill-level-fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
+
+  .skill-level-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── TOOLS ── */
+  .tools-section {
+    margin-top: 72px;
+    padding-top: 72px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tools-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .tool-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text);
+    letter-spacing: 1px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tool-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .tool-pill .tool-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 40px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .exp-item:first-child { padding-top: 0; }
+
+  .exp-period {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    padding-top: 4px;
+  }
+
+  .exp-current {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 9px;
+    padding: 2px 6px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .exp-role {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-style: italic;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+
+  .exp-company {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .exp-desc {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 560px;
+  }
+
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .project-card:hover { background: #1e1e1e; }
+
+  .project-num {
+    font-size: 64px;
+    font-family: var(--serif);
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .project-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .project-status {
+    display: inline-block;
+    font-size: 9px;
+    padding: 3px 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .status-active {
+    background: rgba(200, 240, 78, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(200, 240, 78, 0.3);
+  }
+
+  .status-ongoing {
+    background: rgba(240, 78, 122, 0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(240, 78, 122, 0.3);
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 14px; }
+
+  /* ── EDUCATION ── */
+  .knowledge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .knowledge-block h3 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+
+  .cert-item, .edu-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cert-name, .edu-degree {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+
+  .cert-issuer, .edu-school {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .cert-year, .edu-year {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .cert-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* ── SELF-LEARNING ── */
+  .self-learn-list {
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .self-learn-list h4 {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  .learn-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .learn-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .learn-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .learn-text strong {
+    color: var(--text);
+    display: block;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  /* ── CONTACT ── */
+  #contact { border-bottom: none; }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-headline {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -2px;
+    margin-bottom: 32px;
+  }
+
+  .contact-headline em {
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .contact-text {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact-link-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    transition: color 0.2s, padding-right 0.2s;
+    font-size: 15px;
+  }
+
+  .contact-link-item:hover {
+    color: var(--accent);
+    padding-right: 8px;
+  }
+
+  .contact-link-item span {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  footer p {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate { opacity: 0; }
+  .animate.visible { animation: fadeUp 0.7s ease forwards; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { padding: 0 24px 60px; }
+    section { padding: 64px 24px; }
+    .about-grid,
+    .knowledge-grid,
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+    .hero-year { display: none; }
+  }
+</style>
+</head>
+<body class="lang-pl">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Krystian Pąsiek</div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#about"><span data-lang="pl">O Mnie</span><span data-lang="en">About</span></a></li>
+      <li><a href="#skills"><span data-lang="pl">Umiejętności</span><span data-lang="en">Skills</span></a></li>
+      <li><a href="#experience"><span data-lang="pl">Droga</span><span data-lang="en">Journey</span></a></li>
+      <li><a href="#projects"><span data-lang="pl">Projekty</span><span data-lang="en">Projects</span></a></li>
+      <li><a href="#knowledge"><span data-lang="pl">Edukacja</span><span data-lang="en">Education</span></a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-pl" onclick="setLang('pl')">PL</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-tag animate">
+    <span data-lang="pl">Dostępny dla współpracy</span>
+    <span data-lang="en">Available for opportunities</span>
+  </p>
+  <h1 class="hero-name animate" style="animation-delay:0.1s">
+    <span data-lang="pl">Twórca<br><em>Światów</em></span>
+    <span data-lang="en">Creative<br><em>Worldbuilder</em></span>
+  </h1>
+  <div class="hero-bottom animate" style="animation-delay:0.2s">
+    <p class="hero-bio">
+      <span data-lang="pl"><strong>Twórca narracji i początkujący game developer.</strong> Buduję immersyjne światy inspirowane dark fantasy, cyberpunkiem, muzyką metalową i storytellingiem. Z <strong>Polski</strong>.</span>
+      <span data-lang="en"><strong>Narrative-focused creator & aspiring game developer.</strong> Building immersive worlds inspired by dark fantasy, cyberpunk aesthetics, metal music and storytelling. Based in <strong>Poland</strong>.</span>
+    </p>
+    <a href="#contact" class="hero-cta">
+      <span data-lang="pl">Skontaktuj się →</span>
+      <span data-lang="en">Get in touch →</span>
+    </a>
+  </div>
+  <span class="hero-year">EST. 20XX</span>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header animate">
+    <span class="section-num">01</span>
+    <h2 class="section-title">
+      <span data-lang="pl">O mnie</span>
+      <span data-lang="en">About me</span>
+    </h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text animate">
+      <div data-lang="pl">
+        <p>Jestem <strong>kreatywnym storytellerem i początkującym game developerem</strong> skupionym na immersyjnych narracjach, mrocznym klimacie i worldbuildingu. Moje zainteresowania łączą technologię, muzykę, filozofię i interaktywne opowiadanie historii w jedną spójną wizję twórczą.</p>
+        <p>Większość czasu poświęcam rozwijaniu własnych projektów, pisaniu historii oraz eksplorowaniu narrative designu poprzez papierowe RPG-i i autorskie koncepty. Często wcielam się w rolę Game Mastera, tworząc kampanie, postacie i żyjące światy inspirowane dark fantasy oraz cyberpunkową estetyką.</p>
+        <p>Poza game developmentem pasjonuję się <strong>muzyką metalową, grą na gitarze, historią, filozofią, strategią</strong> oraz historycznym podejściem do walki i sztuki władania bronią. Interesuję się również <strong>etymologią oraz klasyczną łaciną</strong>, często wykorzystując korzenie językowe jako inspirację do worldbuildingu, nazewnictwa i motywów narracyjnych.</p>
+        <p>Obecnie rozwijam własny projekt gry w <strong>Unreal Engine 5</strong>.</p>
+      </div>
+      <div data-lang="en">
+        <p>I'm a <strong>creative storyteller and aspiring game developer</strong> focused on immersive narratives, dark atmosphere and worldbuilding. My interests connect technology, music, philosophy and interactive storytelling into one creative direction.</p>
+        <p>I spend most of my time developing personal projects, writing stories and exploring narrative design through tabletop RPGs and original concepts. I often take the role of Game Master, building campaigns, characters and living worlds inspired by dark fantasy and cyberpunk aesthetics.</p>
+        <p>Beyond game development, I'm passionate about <strong>metal music, guitar playing, history, philosophy, strategy</strong> and historical approaches to combat and weapon mastery. I'm also interested in <strong>etymology and classical Latin</strong>, often using linguistic roots and historical language structures as inspiration for worldbuilding, naming conventions and narrative themes.</p>
+        <p>Currently working on my own game project in <strong>Unreal Engine 5</strong>.</p>
+      </div>
+    </div>
+    <div class="about-details animate" style="animation-delay:0.15s">
+      <div class="detail-row">
+        <span class="detail-label"><span data-lang="pl">Lokalizacja</span><span data-lang="en">Location</span></span>
+        <span class="detail-value">Polska / Poland</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><span data-lang="pl">Rola</span><span data-lang="en">Role</span></span>
+        <span class="detail-value"><span data-lang="pl">Twórca narracji & Game Dev</span><span data-lang="en">Narrative Creator & Game Dev</span></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><span data-lang="pl">Silnik</span><span data-lang="en">Engine</span></span>
+        <span class="detail-value">Unreal Engine 5</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><span data-lang="pl">Doświadczenie</span><span data-lang="en">Journey</span></span>
+        <span class="detail-value"><span data-lang="pl">Samodzielna nauka</span><span data-lang="en">Self-taught & ongoing</span></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><span data-lang="pl">Języki</span><span data-lang="en">Languages</span></span>
+        <span class="detail-value">Polish · English · Latin</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label"><span data-lang="pl">Dostępność</span><span data-lang="en">Availability</span></span>
+        <span class="detail-value"><span data-lang="pl">Otwarty na współpracę</span><span data-lang="en">Open to collaborations</span></span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">CV / Resume</span>
+        <span class="detail-value"><a href="Krystian_Pąsiek_CV.pdf" style="color:var(--accent);text-decoration:none">Download PDF →</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MANIFESTO -->
+  <div class="manifesto-block animate">
+    <p class="manifesto-label"><span data-lang="pl">Filozofia twórcza</span><span data-lang="en">Creative philosophy</span></p>
+    <p class="manifesto-text">
+      <span data-lang="pl">"Każdy świat zaczyna się od jednego słowa. Zadaniem storytellera jest sprawić, żeby nigdy się nie skończyło."</span>
+      <span data-lang="en">"Every world begins with a single word. The storyteller's task is to make sure it never ends."</span>
+    </p>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header animate">
+    <span class="section-num">02</span>
+    <h2 class="section-title">
+      <span data-lang="pl">Umiejętności</span>
+      <span data-lang="en">Skills & abilities</span>
+    </h2>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-card animate">
+      <p class="skill-category">Game Development</p>
+      <h3 class="skill-name">Worldbuilding & Narrative Design</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">
+        <span data-lang="pl">Tworzenie immersyjnych światów, lore, klimatu i konceptów narracyjnych dla autorskich projektów oraz interaktywnych doświadczeń.</span>
+        <span data-lang="en">Creating immersive worlds, lore, atmosphere and narrative concepts for original projects and interactive experiences.</span>
+      </p>
+      <div class="skill-tags">
+        <span class="tag">UE5</span>
+        <span class="tag">Worldbuilding</span>
+        <span class="tag">Narrative Design</span>
+        <span class="tag">Lore Systems</span>
+      </div>
+      <div class="skill-level">
+        <div class="skill-level-fill" style="width:88%"></div>
+      </div>
+      <div class="skill-level-label">
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+      </div>
+    </div>
+
+    <div class="skill-card animate" style="animation-delay:0.05s">
+      <p class="skill-category">Creative</p>
+      <h3 class="skill-name">Storytelling & Writing</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">
+        <span data-lang="pl">Pisanie historii, lore, dialogów i konceptów inspirowanych dark fantasy z dużym naciskiem na klimat oraz emocje.</span>
+        <span data-lang="en">Writing stories, lore, dialogue and dark fantasy inspired concepts with strong focus on atmosphere and emotion.</span>
+      </p>
+      <div class="skill-tags">
+        <span class="tag">Storytelling</span>
+        <span class="tag">Lore</span>
+        <span class="tag">Dialogue</span>
+        <span class="tag">Dark Fantasy</span>
+      </div>
+      <div class="skill-level">
+        <div class="skill-level-fill" style="width:92%"></div>
+      </div>
+      <div class="skill-level-label">
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+      </div>
+    </div>
+
+    <div class="skill-card animate" style="animation-delay:0.1s">
+      <p class="skill-category">RPG & Leadership</p>
+      <h3 class="skill-name">Game Mastering</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">
+        <span data-lang="pl">Prowadzenie długoterminowych kampanii RPG skupionych na immersji, improwizacji i narracji napędzanej przez graczy.</span>
+        <span data-lang="en">Running long-term tabletop RPG campaigns focused on immersion, improvisation and player-driven storytelling.</span>
+      </p>
+      <div class="skill-tags">
+        <span class="tag">Tabletop RPG</span>
+        <span class="tag">Improvisation</span>
+        <span class="tag">Strategy</span>
+        <span class="tag">Faction Design</span>
+      </div>
+      <div class="skill-level">
+        <div class="skill-level-fill" style="width:90%"></div>
+      </div>
+      <div class="skill-level-label">
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+      </div>
+    </div>
+
+    <div class="skill-card animate" style="animation-delay:0.15s">
+      <p class="skill-category">Artistic Identity</p>
+      <h3 class="skill-name">Music & Philosophy</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">
+        <span data-lang="pl">Inspiracje muzyką metalową, filozofią, historią i historyczną estetyką walki jako fundament twórczości i nazewnictwa.</span>
+        <span data-lang="en">Inspired by metal music, philosophy, history and historical combat aesthetics as foundations for creative work and naming.</span>
+      </p>
+      <div class="skill-tags">
+        <span class="tag">Metal</span>
+        <span class="tag">History</span>
+        <span class="tag">Philosophy</span>
+        <span class="tag">Latin / Etymology</span>
+      </div>
+      <div class="skill-level">
+        <div class="skill-level-fill" style="width:82%"></div>
+      </div>
+      <div class="skill-level-label">
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+      </div>
+    </div>
+
+    <div class="skill-card animate" style="animation-delay:0.2s">
+      <p class="skill-category">Technical</p>
+      <h3 class="skill-name">Unreal Engine 5</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">
+        <span data-lang="pl">Nauka silnika UE5 z naciskiem na środowiska, klimat i integrację narracji z mechanikami gry. Aktywnie rozwijany projekt autorski.</span>
+        <span data-lang="en">Learning UE5 with focus on environments, atmosphere and integrating narrative with game mechanics. Active personal project in development.</span>
+      </p>
+      <div class="skill-tags">
+        <span class="tag">UE5</span>
+        <span class="tag">Blueprints</span>
+        <span class="tag">Level Design</span>
+      </div>
+      <div class="skill-level">
+        <div class="skill-level-fill" style="width:55%"></div>
+      </div>
+      <div class="skill-level-label">
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+      </div>
+    </div>
+
+    <div class="skill-card animate" style="animation-delay:0.25s">
+      <p class="skill-category">IT Background</p>
+      <h3 class="skill-name">Technical Foundation</h3>
+      <p style="color:var(--muted);font-size:13px;line-height:1.7">
+        <span data-lang="pl">Certyfikowane wykształcenie IT (INF.02 & INF.03) jako fundament techniczny. Rozumienie systemów, sieci i logiki programowania.</span>
+        <span data-lang="en">Certified IT background (INF.02 & INF.03) as technical foundation. Understanding of systems, networking and programming logic.</span>
+      </p>
+      <div class="skill-tags">
+        <span class="tag">IT Systems</span>
+        <span class="tag">Networking</span>
+        <span class="tag">Logic</span>
+      </div>
+      <div class="skill-level">
+        <div class="skill-level-fill" style="width:72%"></div>
+      </div>
+      <div class="skill-level-label">
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+        <span><span data-lang="pl"></span><span data-lang="en"></span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOOLS -->
+  <div class="tools-section animate">
+    <p class="tools-label"><span data-lang="pl">Narzędzia i środowisko pracy</span><span data-lang="en">Tools & workflow environment</span></p>
+    <div class="tools-grid">
+      <div class="tool-pill"><span class="tool-dot"></span>Unreal Engine 5</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Blueprints</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Obsidian (Worldbuilding)</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Notion</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Foundry VTT</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Git / GitHub</div>
+      <div class="tool-pill"><span class="tool-dot"></span>VS Code</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Inkarnate (Map Design)</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Guitar (6-string)</div>
+    </div>
+  </div>
+</section>
+
+<!-- CREATIVE JOURNEY -->
+<section id="experience">
+  <div class="section-header animate">
+    <span class="section-num">03</span>
+    <h2 class="section-title">
+      <span data-lang="pl">Twórcza Droga</span>
+      <span data-lang="en">Creative Journey</span>
+    </h2>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item animate">
+      <div class="exp-period">2026 — Present</div>
+      <div>
+        <span class="exp-current"><span data-lang="pl">Aktywny</span><span data-lang="en">Current</span></span>
+        <h3 class="exp-role">
+          <span data-lang="pl">Autorski Projekt Gry</span>
+          <span data-lang="en">Original Game Project</span>
+        </h3>
+        <p class="exp-company">Unreal Engine 5 — Personal Development</p>
+        <p class="exp-desc">
+          <span data-lang="pl">Rozwijanie autorskiego projektu gry w UE5 skupionego na immersyjnym storytellingu, mrocznym klimacie i oryginalnym worldbuildingu. Projekt łączy mechaniki RPG z bogatą narracją opartą na własnym lore.</span>
+          <span data-lang="en">Developing an original game concept in UE5 focused on immersive storytelling, dark atmosphere and worldbuilding. The project blends RPG mechanics with rich narrative grounded in original lore.</span>
+        </p>
+        <div class="exp-tags">
+          <span class="tag">UE5</span>
+          <span class="tag">Narrative Design</span>
+          <span class="tag">Worldbuilding</span>
+          <span class="tag">Dark Fantasy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item animate">
+      <div class="exp-period">Ongoing</div>
+      <div>
+        <h3 class="exp-role">
+          <span data-lang="pl">Game Master & Twórca Narracji</span>
+          <span data-lang="en">Game Master & Narrative Creator</span>
+        </h3>
+        <p class="exp-company"><span data-lang="pl">Doświadczenie w Papierowym RPG</span><span data-lang="en">Tabletop RPG Experience</span></p>
+        <p class="exp-desc">
+          <span data-lang="pl">Tworzenie i prowadzenie długoterminowych kampanii RPG z naciskiem na improwizację, strukturę narracyjną i immersję graczy. Autorskie światy, frakcje, systemy polityczne i żyjące ekosystemy.</span>
+          <span data-lang="en">Creating and running long-term RPG campaigns with strong focus on improvisation, narrative structure and player immersion. Original worlds, factions, political systems and living ecosystems.</span>
+        </p>
+        <div class="exp-tags">
+          <span class="tag">RPG</span>
+          <span class="tag">Improvisation</span>
+          <span class="tag">Faction Design</span>
+          <span class="tag">Player Agency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item animate">
+      <div class="exp-period"><span data-lang="pl">Praca własna</span><span data-lang="en">Personal Work</span></div>
+      <div>
+        <h3 class="exp-role">
+          <span data-lang="pl">Pisanie i Eksploracja Twórcza</span>
+          <span data-lang="en">Writing & Creative Exploration</span>
+        </h3>
+        <p class="exp-company"><span data-lang="pl">Niezależne Projekty Kreatywne</span><span data-lang="en">Independent Creative Projects</span></p>
+        <p class="exp-desc">
+          <span data-lang="pl">Pisanie autorskich historii, konceptów lore, tekstów i materiałów kreatywnych inspirowanych dark fantasy, cyberpunkiem i kulturą metalową. Etymologia i klasyczna łacina jako fundament nazewnictwa.</span>
+          <span data-lang="en">Writing original stories, lore concepts, lyrics and creative material inspired by dark fantasy, cyberpunk and metal culture. Etymology and classical Latin as foundation for naming conventions.</span>
+        </p>
+        <div class="exp-tags">
+          <span class="tag">Writing</span>
+          <span class="tag">Lore</span>
+          <span class="tag">Latin / Etymology</span>
+          <span class="tag">Cyberpunk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item animate">
+      <div class="exp-period"><span data-lang="pl">Stała pasja</span><span data-lang="en">Constant passion</span></div>
+      <div>
+        <h3 class="exp-role">
+          <span data-lang="pl">Muzyka & Gitara</span>
+          <span data-lang="en">Music & Guitar</span>
+        </h3>
+        <p class="exp-company"><span data-lang="pl">Metal — Własna praktyka</span><span data-lang="en">Metal — Personal Practice</span></p>
+        <p class="exp-desc">
+          <span data-lang="pl">Gra na gitarze i zanurzenie w muzyce metalowej jako źródło inspiracji twórczej, emocjonalnego rezonansu i estetycznych fundamentów wszystkich projektów narracyjnych.</span>
+          <span data-lang="en">Guitar playing and immersion in metal music as a source of creative inspiration, emotional resonance and aesthetic foundation for all narrative projects.</span>
+        </p>
+        <div class="exp-tags">
+          <span class="tag">Metal</span>
+          <span class="tag">Guitar</span>
+          <span class="tag">Composition</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header animate">
+    <span class="section-num">04</span>
+    <h2 class="section-title">
+      <span data-lang="pl">Wybrane projekty</span>
+      <span data-lang="en">Selected projects</span>
+    </h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card animate">
+      <div class="project-num">01</div>
+      <span class="project-status status-active">
+        <span data-lang="pl">W produkcji</span>
+        <span data-lang="en">In development</span>
+      </span>
+      <h3 class="project-title">
+        <span data-lang="pl">Autorski Projekt UE5</span>
+        <span data-lang="en">Original UE5 Game Project</span>
+      </h3>
+      <p class="project-desc">
+        <span data-lang="pl">Osobisty projekt gry skupiony na głębi narracyjnej, immersyjnym klimacie i oryginalnych konceptach worldbuildingu. Mroczna estetyka inspirowana dark fantasy i filozofią egzystencjalną.</span>
+        <span data-lang="en">A personal game project focused on narrative depth, immersive atmosphere and original worldbuilding concepts. Dark aesthetic inspired by dark fantasy and existential philosophy.</span>
+      </p>
+      <div class="skill-tags" style="margin-bottom:24px">
+        <span class="tag">UE5</span>
+        <span class="tag">Narrative</span>
+        <span class="tag">Dark Fantasy</span>
+      </div>
+      <a href="#" class="project-link">
+        <span data-lang="pl">W trakcie tworzenia →</span>
+        <span data-lang="en">In development →</span>
+      </a>
+    </div>
+
+    <div class="project-card animate" style="animation-delay:0.05s">
+      <div class="project-num">02</div>
+      <span class="project-status status-ongoing">
+        <span data-lang="pl">Trwający</span>
+        <span data-lang="en">Ongoing</span>
+      </span>
+      <h3 class="project-title">
+        <span data-lang="pl">Światy Kampanii RPG</span>
+        <span data-lang="en">RPG Campaign Worlds</span>
+      </h3>
+      <p class="project-desc">
+        <span data-lang="pl">Autorskie światy RPG, frakcje, systemy narracyjne i materiały do kampanii tworzone z myślą o długoterminowym storytellingu i immersji graczy.</span>
+        <span data-lang="en">Original tabletop RPG settings, factions, narrative systems and campaign materials created for long-term campaigns and player immersion.</span>
+      </p>
+      <div class="skill-tags" style="margin-bottom:24px">
+        <span class="tag">RPG</span>
+        <span class="tag">Worldbuilding</span>
+        <span class="tag">Faction Design</span>
+      </div>
+      <a href="#" class="project-link">
+        <span data-lang="pl">Archiwum kreatywne →</span>
+        <span data-lang="en">Creative archive →</span>
+      </a>
+    </div>
+
+    <div class="project-card animate" style="animation-delay:0.1s">
+      <div class="project-num">03</div>
+      <span class="project-status status-ongoing">
+        <span data-lang="pl">Trwający</span>
+        <span data-lang="en">Ongoing</span>
+      </span>
+      <h3 class="project-title">
+        <span data-lang="pl">Archiwum Pisarskie & Lore</span>
+        <span data-lang="en">Writing & Lore Archive</span>
+      </h3>
+      <p class="project-desc">
+        <span data-lang="pl">Zbiór historii, konceptów lore, tekstów i eksperymentów kreatywnych inspirowanych filozofią, horrorem i dark fantasy. Nazewnictwo budowane na łacinie i etymologii.</span>
+        <span data-lang="en">Collection of stories, lore concepts, lyrics and creative experiments inspired by philosophy, horror and dark fantasy. Naming conventions built on Latin and etymology.</span>
+      </p>
+      <div class="skill-tags" style="margin-bottom:24px">
+        <span class="tag">Writing</span>
+        <span class="tag">Lore</span>
+        <span class="tag">Philosophy</span>
+      </div>
+      <a href="#" class="project-link">
+        <span data-lang="pl">Praca w toku →</span>
+        <span data-lang="en">Ongoing work →</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="knowledge">
+  <div class="section-header animate">
+    <span class="section-num">05</span>
+    <h2 class="section-title">
+      <span data-lang="pl">Edukacja & Certyfikaty</span>
+      <span data-lang="en">Education & Certifications</span>
+    </h2>
+  </div>
+  <div class="knowledge-grid">
+
+    <div class="knowledge-block animate">
+      <h3><span data-lang="pl">Wykształcenie</span><span data-lang="en">Education</span></h3>
+      <div class="edu-item">
+        <p class="edu-degree"><span data-lang="pl">Technik Informatyk</span><span data-lang="en">IT Technician</span></p>
+        <p class="edu-school">Technikum Informatyczne "Lider"</p>
+        <p class="edu-year"><span data-lang="pl">Ukończone</span><span data-lang="en">Completed</span></p>
+        <p class="cert-desc">
+          <span data-lang="pl">Czteroletni program techniczny obejmujący sieci, systemy operacyjne, programowanie i administrację IT.</span>
+          <span data-lang="en">Four-year technical programme covering networking, operating systems, programming logic and IT administration.</span>
+        </p>
+      </div>
+
+      <div class="self-learn-list">
+        <h4><span data-lang="pl">Samodzielna nauka</span><span data-lang="en">Self-directed learning</span></h4>
+        <div class="learn-item">
+          <div class="learn-dot"></div>
+          <div class="learn-text">
+            <strong>Unreal Engine 5</strong>
+            <span data-lang="pl">Dokumentacja Epic Games, tutoriale, praktyczne projekty i eksperymenty z Blueprints, Level Design i środowiskami.</span>
+            <span data-lang="en">Epic Games documentation, tutorials, hands-on projects and experiments with Blueprints, Level Design and environments.</span>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-dot"></div>
+          <div class="learn-text">
+            <strong><span data-lang="pl">Narrative Design</span><span data-lang="en">Narrative Design</span></strong>
+            <span data-lang="pl">Analiza gier, lektura teorii narracji, studiowanie struktury gier RPG i interaktywnych opowieści.</span>
+            <span data-lang="en">Game analysis, reading narrative theory, studying RPG structure and interactive storytelling design.</span>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-dot"></div>
+          <div class="learn-text">
+            <strong><span data-lang="pl">Łacina & Etymologia</span><span data-lang="en">Latin & Etymology</span></strong>
+            <span data-lang="pl">Samodzielna nauka klasycznej łaciny jako narzędzia worldbuildingu, nazewnictwa i inspiracji narracyjnej.</span>
+            <span data-lang="en">Self-study of classical Latin as a worldbuilding tool, naming convention system and narrative inspiration.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="knowledge-block animate" style="animation-delay:0.1s">
+      <h3><span data-lang="pl">Certyfikaty</span><span data-lang="en">Certifications</span></h3>
+      <div class="cert-item">
+        <p class="cert-name">INF.02</p>
+        <p class="cert-issuer"><span data-lang="pl">Kwalifikacja Zawodowa IT</span><span data-lang="en">IT Professional Qualification</span></p>
+        <p class="cert-year">2023</p>
+        <p class="cert-desc">
+          <span data-lang="pl">Administracja i eksploatacja systemów komputerowych, urządzeń peryferyjnych i lokalnych sieci komputerowych.</span>
+          <span data-lang="en">Administration and operation of computer systems, peripheral devices and local computer networks.</span>
+        </p>
+      </div>
+      <div class="cert-item">
+        <p class="cert-name">INF.03</p>
+        <p class="cert-issuer"><span data-lang="pl">Kwalifikacja Zawodowa IT</span><span data-lang="en">IT Professional Qualification</span></p>
+        <p class="cert-year">2024</p>
+        <p class="cert-desc">
+          <span data-lang="pl">Tworzenie i administrowanie stronami internetowymi i bazami danych oraz administrowanie serwerami.</span>
+          <span data-lang="en">Creating and administering websites, databases and server administration.</span>
+        </p>
+      </div>
+
+      <div class="self-learn-list">
+        <h4><span data-lang="pl">Inspiracje & Wpływy</span><span data-lang="en">Inspirations & influences</span></h4>
+        <div class="learn-item">
+          <div class="learn-dot"></div>
+          <div class="learn-text">
+            <strong>Dark Fantasy</strong>
+            <span data-lang="pl">Berserk, Dark Souls, Bloodborne, Warhammer Fantasy — jako wzorce narracji i estetyki.</span>
+            <span data-lang="en">Berserk, Dark Souls, Bloodborne, Warhammer Fantasy — as narrative and aesthetic benchmarks.</span>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-dot"></div>
+          <div class="learn-text">
+            <strong>Metal Music</strong>
+            <span data-lang="pl">Black, death, folk i doom metal jako fundament emocjonalny i estetyczny wszystkich projektów.</span>
+            <span data-lang="en">Black, death, folk and doom metal as emotional and aesthetic foundation across all projects.</span>
+          </div>
+        </div>
+        <div class="learn-item">
+          <div class="learn-dot"></div>
+          <div class="learn-text">
+            <strong><span data-lang="pl">Filozofia</span><span data-lang="en">Philosophy</span></strong>
+            <span data-lang="pl">Egzystencjalizm, stoicyzm i filozofia klasyczna jako narzędzia budowania głębi narracyjnej.</span>
+            <span data-lang="en">Existentialism, stoicism and classical philosophy as tools for building narrative depth.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header animate">
+    <span class="section-num">06</span>
+    <h2 class="section-title">
+      <span data-lang="pl">Porozmawiajmy</span>
+      <span data-lang="en">Let's connect</span>
+    </h2>
+  </div>
+  <div class="contact-inner">
+    <div class="animate">
+      <h2 class="contact-headline">
+        <span data-lang="pl">Masz <em>pomysł</em><br>na projekt?</span>
+        <span data-lang="en">Got a <em>project</em><br>in mind?</span>
+      </h2>
+      <p class="contact-text">
+        <span data-lang="pl">Niezależnie od tego, czy szukasz współpracy, chcesz porozmawiać o projekcie czy po prostu się odezwać — jestem otwarty na kontakt. Staram się odpowiadać w ciągu 48 godzin.</span>
+        <span data-lang="en">Whether you're looking to collaborate, hire, or just say hello — my inbox is always open. I try to respond within 48 hours.</span>
+      </p>
+      <a href="mailto:subrealityliver@gmail.com" class="hero-cta">
+        <span data-lang="pl">Wyślij wiadomość →</span>
+        <span data-lang="en">Send an email →</span>
+      </a>
+    </div>
+
+    <div class="contact-links animate" style="animation-delay:0.1s">
+      <a href="mailto:subrealityliver@gmail.com" class="contact-link-item">
+        <span>Email</span>
+        subrealityliver@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/subreality-liver-b14915411/" target="_blank" class="contact-link-item">
+        <span>LinkedIn</span>
+        /in/subreality-liver-b14915411
+      </a>
+      <a href="https://github.com/subrealityliver" target="_blank" class="contact-link-item">
+        <span>GitHub</span>
+        @subrealityliver
+      </a>
+      <a href="#" class="contact-link-item">
+        <span>Discord</span>
+        @fortitudoininfirmitate
+      </a>
+      <a href="Krystian_Pąsiek_CV.pdf" class="contact-link-item">
+        <span>Resume / CV</span>
+        <span data-lang="pl">Pobierz PDF →</span>
+        <span data-lang="en">Download PDF →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Krystian Pąsiek. <span data-lang="pl">Wszelkie prawa zastrzeżone.</span><span data-lang="en">All rights reserved.</span></p>
+  <p><span data-lang="pl">Zaprojektowane i zbudowane przez Krystiana.</span><span data-lang="en">Designed & built by Krystian.</span></p>
+</footer>
+
+<script>
+  // ── LANGUAGE TOGGLE ──
+  function setLang(lang) {
+    document.body.classList.remove('lang-pl', 'lang-en');
+    document.body.classList.add('lang-' + lang);
+    document.getElementById('btn-pl').classList.toggle('active', lang === 'pl');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.documentElement.lang = lang;
+  }
+
+  // ── SCROLL ANIMATIONS ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) el.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+  // ── SKILL BAR ANIMATION ──
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const fills = entry.target.querySelectorAll('.skill-level-fill');
+        fills.forEach(f => {
+          const w = f.style.width;
+          f.style.width = '0';
+          setTimeout(() => { f.style.width = w; }, 100);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.skills-grid').forEach(el => skillObserver.observe(el));
+</script>
+</body>
+</html>
